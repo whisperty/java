@@ -66,7 +66,7 @@ public class Network
 			// nodeArrayList.get(i).print();
 		
 		//for(int i = 0; i < 5; i++)
-		//	nodeArrayList.get(i).calOut();
+			//nodeArrayList.get(i).calOut();
 		 cal();
 		 //for(int i = 0; i < nodeArrayList.size(); i++)
 			// nodeArrayList.get(i).print();
@@ -155,6 +155,7 @@ public class Network
 	
 	public static void main(String[] args) throws Exception
 	{
+
 		String xml = "";
 		String path = "F:\\Stream\\sig_data_network.xml";
 		BufferedReader br=new BufferedReader(new FileReader(new File(path)));

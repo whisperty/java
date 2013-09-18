@@ -2,8 +2,18 @@ package com.bachk.ssys.fcl.model;
 
 import java.util.ArrayList;
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 
+import java.net.*;
+import java.util.ArrayList;
+import java.util.jar.*;
+import java.lang.*;
+import java.lang.reflect.*;
+
+import com.bachk.ssys.fcl.model.*;
 import com.bachk.ssys.fcl.service.*;
+
 
 public class Node 
 {
@@ -83,8 +93,18 @@ public class Node
 	{
     	try
     	{
-    		Class typeClass = Class.forName("com.bachk.ssys.fcl.service."+type);
-    	    Object typeObject = typeClass.newInstance();
+    		Class typeClass;
+    		
+    		try
+    		{
+    			typeClass = Class.forName("com.bachk.ssys.fcl.service."+type);
+    		}
+    		catch(Exception e)
+    		{
+    			typeClass = JarUtil.findClass(Conf.usersOperationJarRoot + "\\gg.jar","gg.TT");
+    		}
+    		
+    		Object typeObject = typeClass.newInstance();
     	    
     	    Class types[] =new Class[3];  
             types[0] = inNodeArrayList.getClass();//Class.forName("ArrayList<java.lang.String>");//方法的参数对应下面的String aa  
@@ -130,5 +150,23 @@ public class Node
 		
 		System.out.println("size"+out.size());
 		System.out.println("Node Test testTest testTest testTest testTest testTest testTest test");
+		
+    	/*try
+    	{
+    		Class typeClass = Class.forName("users.TT");
+    	    Object typeObject = typeClass.newInstance();
+    	    
+    	    Class types[] =new Class[1];  
+    	    types[0] = String.class;
+    	    
+            Method m = typeClass.getMethod("cal", types);//动态调用sayHello方法  
+            m.invoke(typeObject, "asfd");
+            
+    	}
+    	catch(Exception ee)
+    	{
+    		ee.printStackTrace();
+    	}*/
+    	
 	}
 }
