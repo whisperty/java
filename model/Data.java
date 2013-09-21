@@ -1,9 +1,19 @@
-package com.bachk.ssys.fcl.model;
+package model;
 
 import java.util.*;
 
 public class Data {
-	private ArrayList<String> valueArrayList = new ArrayList<String>();
+	private ArrayList<String> valueArrayList;
+	
+	public Data()
+	{
+		valueArrayList = new ArrayList<String>();
+	}
+	
+	public Data(ArrayList<String> valueArrayList2)
+	{
+		valueArrayList = valueArrayList2;
+	}
 	
 	public String get(int index)
 	{
@@ -23,6 +33,11 @@ public class Data {
 	public int size()
 	{
 		return valueArrayList.size();
+	}
+	
+	public ArrayList<String> toArrayList()
+	{
+		return valueArrayList;
 	}
 	
 	public void print()

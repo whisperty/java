@@ -1,5 +1,7 @@
 package com.bachk.ssys.fcl.service;
 
+//import gg.JarUtil;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +37,8 @@ import org.dom4j.Element;
 
 import com.bachk.ssys.fcl.model.SMSModel;
 import com.bachk.ssys.fcl.model.SelectItem;
-import com.bachk.ssys.fcl.model.Node;
+import model.*;
+
 @Service
 @RemotingDestination
 public class Network 
@@ -45,6 +49,30 @@ public class Network
 	public void init(String xmlNetwork)
 	{
 		 System.out.println("fsafdsafdsadfsaaaaaaaaaaaaaaasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+		 //JarUtil.executeJarClass("file:\\G:\\users.jar", "users.TT", "cal", "454");
+		 //JarUtil.executeJarClass(Conf.usersOperationJarRoot + "\\users.jar", "users.TT", "cal", "454");
+		 //JarUtil.executeJarClass(Conf.operatorsJarRoot + "\\operators.jar", "operators.TT", "cal", "454");
+		 //debug();
+		/* Node node = new Node("DataStream");
+		 
+		// Debug d = new Debug("DataStream");
+		 //d.calOut();
+		 //d.print();
+		 ArrayList< ArrayList< ArrayList<String> > > in = new ArrayList< ArrayList< ArrayList<String> > >();
+		 ArrayList<String>name = new ArrayList<String>();
+		 ArrayList<String>para = new ArrayList<String>();
+		 //node.outArrayList = JarUtil.executeJarClass(node.type, node.inNodeArrayList, node.inDataNameArrayList, node.paraArrayList);
+		 ArrayList< ArrayList<String> > outArrayList = (ArrayList< ArrayList<String> >)JarUtil.executeJarClass(node.type, in, name, para);
+		 //node.calOut();
+		 ArrayList<Data>dataList = new ArrayList<Data>();
+		 for(int i = 0; i < outArrayList.size(); i++)
+			 dataList.add(new Data(outArrayList.get(i)));
+		 node.outArrayList = dataList;
+		 
+		 node.calOut();
+		 node.print();
+		 System.out.println("pppppppppppppppppppdfsadfsa");*/
+		 
 		 File f = new File("F:\\Stream\\log.txt");
 		 BufferedWriter output;
 		 
@@ -62,14 +90,14 @@ public class Network
 		 
 		 getNetwork(xmlNetwork);
 		 topo();
-		 //for(int i = 0; i < nodeArrayList.size(); i++)
-			// nodeArrayList.get(i).print();
+		 for(int i = 0; i < nodeArrayList.size(); i++)
+			 nodeArrayList.get(i).print();
 		
-		//for(int i = 0; i < 5; i++)
-			//nodeArrayList.get(i).calOut();
+		//for(int i = 0; i < 0; i++)
+		//	nodeArrayList.get(i).calOut();
 		 cal();
 		 //for(int i = 0; i < nodeArrayList.size(); i++)
-			// nodeArrayList.get(i).print();
+		//	nodeArrayList.get(i).print();
 		 
 		//System.out.println(nodeArrayList.size());
 	}

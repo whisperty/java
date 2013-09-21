@@ -1,4 +1,5 @@
-package com.bachk.ssys.fcl.model;
+package model;
+
 
 import java.util.ArrayList;
 import java.lang.reflect.Method;
@@ -11,23 +12,19 @@ import java.util.jar.*;
 import java.lang.*;
 import java.lang.reflect.*;
 
-import com.bachk.ssys.fcl.model.*;
-import com.bachk.ssys.fcl.service.*;
-
-
 public class Node 
 {
 	//输入数据节点
-	private ArrayList<Node> inNodeArrayList = new ArrayList<Node>();
+	public ArrayList<Node> inNodeArrayList = new ArrayList<Node>();
 	//计算结果
-	private ArrayList<Data> outArrayList;
+	public ArrayList<Data> outArrayList;
 	//节点类型，包括操作类型
-	private String type;
+	public String type;
 	//参数描述,由前端link的描述获得以便于区分输入数据
-	private ArrayList<String>inDataNameArrayList = new ArrayList<String>();
+	public ArrayList<String>inDataNameArrayList = new ArrayList<String>();
 	
 	//运算的参数
-	private ArrayList<String>paraArrayList = new ArrayList<String>();
+	public ArrayList<String>paraArrayList = new ArrayList<String>();
 	//拓扑排序用
 	public int du;
 	
@@ -88,21 +85,56 @@ public class Node
 		return outArrayList;
 	}
 	
+	public ArrayList<ArrayList<String> > outArrayListToArrayList()
+	{
+		ArrayList<ArrayList<String> > ans = new ArrayList<ArrayList<String> >();
+		for(int i = 0; i < outArrayList.size(); i++)
+			ans.add(outArrayList.get(i).toArrayList());
+		
+		return ans;
+	}
+	
+	public ArrayList<ArrayList<ArrayList<String> > > inNodeArrayListToArrayList()
+	{
+		ArrayList<ArrayList<ArrayList<String> > >ans = new ArrayList<ArrayList<ArrayList<String> > >();
+		
+		for(int i = 0; i < inNodeArrayList.size(); i++)
+			ans.add(inNodeArrayList.get(i).outArrayListToArrayList());
+		
+		return ans;
+	}
+	
+	public ArrayList<Data> toDataArrayList(ArrayList<ArrayList<String> > in)
+	{
+		ArrayList<Data> ans = new ArrayList<Data>();
+		
+		for(int i = 0; i < in.size(); i++)
+			ans.add(new Data(in.get(i)));
+		
+		return ans;
+	}
+	
 	//计算结果
 	public void calOut()
 	{
+		outArrayList = toDataArrayList((ArrayList<ArrayList<String> >)JarUtil.executeJarClass(type, this.inNodeArrayListToArrayList(), inDataNameArrayList, paraArrayList));
+		
+		/*
     	try
     	{
     		Class typeClass;
     		
     		try
     		{
-    			typeClass = Class.forName("com.bachk.ssys.fcl.service."+type);
+    			//typeClass = Class.forName("com.bachk.ssys.fcl.service."+type);
+    			typeClass = JarUtil.findClass(Conf.operatorsJarRoot + "\\operators.jar", "operators." + type);
     		}
     		catch(Exception e)
     		{
-    			typeClass = JarUtil.findClass(Conf.usersOperationJarRoot + "\\gg.jar","gg.TT");
+    			typeClass = JarUtil.findClass(Conf.usersOperationJarRoot + "\\users.jar", "users." + type);
     		}
+    		
+    		//typeClass = JarUtil.findClass(Conf.usersOperationJarRoot + "\\users.jar", "users." + type);
     		
     		Object typeObject = typeClass.newInstance();
     	    
@@ -118,7 +150,7 @@ public class Node
     	catch(Exception e)
     	{
     		e.printStackTrace();
-    	}
+    	}*/
 	}
 	
 	public static void main(String [] args) throws Exception

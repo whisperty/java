@@ -1,15 +1,15 @@
-package com.bachk.ssys.fcl.service;
+package operators;
 
 import java.util.ArrayList;
 
 import java.util.Date; 
 import java.util.Locale; 
+import java.io.IOException;
 import java.text.DateFormat; 
 import java.text.ParseException; 
 import java.text.SimpleDateFormat; 
 
-import com.bachk.ssys.fcl.model.Data;
-import com.bachk.ssys.fcl.model.Node;
+import model.*;
 
 public class Project {
 	/*
@@ -22,7 +22,7 @@ public class Project {
 		£¨2£©GetLacAndCi£¨IMSI,start ci£¬end ci, start lac , end lac£©
 		£¨3£©GetPhoneNum(IMSI)
 	 * */
-	public ArrayList<Data> cal(ArrayList<Node>inNodeArrayList, ArrayList<String>inNodeNameArrayList, ArrayList<String> paraArrayList)  throws ParseException
+	/*public ArrayList<Data> cal(ArrayList<Node>inNodeArrayList, ArrayList<String>inNodeNameArrayList, ArrayList<String> paraArrayList)  throws ParseException
 	{
 		ArrayList<Data>ans = new ArrayList<Data>();
 		
@@ -40,6 +40,50 @@ public class Project {
 			String end_lac = i.get(7);
 			
 			Data data = new Data();
+			if(kind.equals("GetTimeProject"))
+			{
+				data.add(IMSI);
+				data.add(Time_Stamp);
+				data.add(Duration);
+			}
+			else
+				if(kind.equals("GetLacAndCiProject"))
+				{
+					data.add(IMSI);
+					data.add(start_ci);
+					data.add(end_ci);
+					data.add(start_lac);
+					data.add(end_lac);
+				}
+				else
+					if(kind.equals("GetPhoneNumProject"))
+					{
+						data.add(IMSI);
+					}
+			
+			ans.add(data);
+		}
+		
+		return ans;
+	}*/
+	
+	public ArrayList<ArrayList<String> > cal(ArrayList< ArrayList<ArrayList<String> > >inNode, ArrayList<String>inNodeNameArrayList, ArrayList<String> paraArrayList) throws IOException
+	{
+		ArrayList<ArrayList<String> >ans = new ArrayList<ArrayList<String> >();
+		ArrayList<ArrayList<String> > in = inNode.get(0);
+		
+		String kind = paraArrayList.get(0);
+		for(ArrayList<String> i : in)
+		{
+			String IMSI = i.get(0);
+			String Time_Stamp = i.get(3);
+			String Duration = i.get(4);
+			String start_ci = i.get(6);
+			String end_ci = i.get(8);
+			String start_lac = i.get(5);
+			String end_lac = i.get(7);
+			
+			ArrayList<String> data = new ArrayList<String>();
 			if(kind.equals("GetTimeProject"))
 			{
 				data.add(IMSI);
