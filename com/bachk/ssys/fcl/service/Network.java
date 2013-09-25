@@ -93,7 +93,7 @@ public class Network
 		 for(int i = 0; i < nodeArrayList.size(); i++)
 			 nodeArrayList.get(i).print();
 		
-		//for(int i = 0; i < 0; i++)
+		//for(int i = 0; i < 5; i++)
 		//	nodeArrayList.get(i).calOut();
 		 cal();
 		 //for(int i = 0; i < nodeArrayList.size(); i++)
@@ -136,7 +136,26 @@ public class Network
 	        	System.out.println("type=["+type+"]");
 	        	
 	        	String name = element.attributeValue("figureName");
-	        	Node node = new Node(type, name);
+	        	Node node = new Node(type);
+	        	if(type.equals("DataStream"))
+	        	{
+	        		node.addPara("srcFilename=");
+	        		node.addPara(element.attributeValue("srcFilename"));
+	        		//System.out.println("                     ------DataStream srcFileName=" + element.attributeValue("srcFileName"));
+	        	}
+	        	else
+	        		if(type.equals("Project"))
+	        		{
+	        			node.addPara("attributesName=");
+	        			node.addPara(element.attributeValue("attributesName"));
+	        		}
+	        		else
+	        			if(type.endsWith("Select"))
+	        			{
+	        				node.addPara("conditionExpr=");
+	        				node.addPara(element.attributeValue("conditionExpr"));
+	        			}
+	        	
 	        	nodeMap.put(id, node);
 	        	nodeArrayList.add(node);
 	        }
@@ -155,7 +174,8 @@ public class Network
 	        		System.out.println("type=["+type+"}");
 		        	String startFigureId = element.attributeValue("startFigureId");
 		        	String endFigureId = element.attributeValue("endFigureId");
-		        	nodeMap.get(endFigureId).addInNode(nodeMap.get(startFigureId), "myNull");
+		        	String figureName = element.attributeValue("figureName");
+		        	nodeMap.get(endFigureId).addInNode(nodeMap.get(startFigureId), figureName);
 		        	nodeMap.get(startFigureId).du++;
 	        	}
 	        }

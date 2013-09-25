@@ -15,16 +15,16 @@ import java.lang.reflect.*;
 public class Node 
 {
 	//输入数据节点
-	public ArrayList<Node> inNodeArrayList = new ArrayList<Node>();
+	private ArrayList<Node> inNodeArrayList = new ArrayList<Node>();
 	//计算结果
-	public ArrayList<Data> outArrayList;
+	private ArrayList<Data> outArrayList;
 	//节点类型，包括操作类型
-	public String type;
+	private String type;
 	//参数描述,由前端link的描述获得以便于区分输入数据
-	public ArrayList<String>inDataNameArrayList = new ArrayList<String>();
+	private ArrayList<String>inDataNameArrayList = new ArrayList<String>();
 	
 	//运算的参数
-	public ArrayList<String>paraArrayList = new ArrayList<String>();
+	private ArrayList<String>paraArrayList = new ArrayList<String>();
 	//拓扑排序用
 	public int du;
 	
@@ -39,11 +39,16 @@ public class Node
 		du = 0;
 	}
 	
-	public Node(String type, String name)
+	/*public Node(String type, String name)
 	{
 		this.type = type;
 		this.paraArrayList.add(name);
 		du = 0;
+	}*/
+	
+	public void addPara(String para)
+	{
+		paraArrayList.add(para);
 	}
 	
 	public void cutLink(ArrayList<Node> result)

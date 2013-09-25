@@ -4,8 +4,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 
-import model.*;
-
 public class Join {
 	
 	/*
@@ -63,12 +61,28 @@ public class Join {
 		
 		ArrayList<ArrayList<String> > in0 = in.get(0);
 		ArrayList<ArrayList<String> > in1 = in.get(1);
+		Integer i0 = Integer.valueOf(inNodeNameArrayList.get(0)), i1 = Integer.valueOf(inNodeNameArrayList.get(1));
 		
-		for(int i = 0; i < in0.size(); i++)
+		if(i0.compareTo(i1) > 0)
 		{
-			ArrayList<String> data0 = in0.get(i);
-			ArrayList<String> data1 = in1.get(i);
-			ArrayList<String> data = new ArrayList<String>();
+			in0 = in.get(1);
+			in1 = in.get(0);
+		}
+		
+		ArrayList<String> data = new ArrayList<String>();
+		ArrayList<String> data0 = in0.get(0);
+		ArrayList<String> data1 = in1.get(0);
+		for(int i = 0; i < data0.size(); i++)
+			data.add(data0.get(i));
+		for(int i = 1; i < data1.size(); i++)
+			data.add(data1.get(i));
+		ans.add(data);
+		
+		for(int i = 1; i < in0.size(); i++)
+		{
+			data0 = in0.get(i);
+			data1 = in1.get(i);
+			data = new ArrayList<String>();
 			
 			if(data0.get(0).equals(data1.get(0)))
 			{
@@ -82,7 +96,7 @@ public class Join {
 				continue;
 			}
 			
-			for(int j = 0; j < in1.size(); j++)
+			for(int j = 1; j < in1.size(); j++)
 			{
 				data1 = in1.get(j);
 				if(data0.get(0).equals(data1.get(0)))

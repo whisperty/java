@@ -29,12 +29,13 @@ public class JarUtil extends URLClassLoader {
 			
 			try
 			{
-				//typeClass = Class.forName("com.bachk.ssys.fcl.service."+type);
-				typeClass = JarUtil.findClass(Conf.operatorsJarRoot + "\\operators.jar", "operators." + type);
+				//typeClass = Class.forName("operators."+type);
+				typeClass = JarUtil.findClass("file:\\" + Conf.operatorsJarRoot + "\\operators.jar", "operators." + type);
 			}
 			catch(Exception e)
 			{
-				typeClass = JarUtil.findClass(Conf.usersOperationJarRoot + "\\users.jar", "users." + type);
+				//typeClass = Class.forName("users."+type);
+				typeClass = JarUtil.findClass("file:\\" + Conf.usersOperationJarRoot + "\\users.jar", "users." + type);
 			}
 			
 			//typeClass = JarUtil.findClass(Conf.usersOperationJarRoot + "\\users.jar", "users." + type);

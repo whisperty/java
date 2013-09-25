@@ -3,13 +3,14 @@ package operators;
 import java.util.ArrayList;
 
 import java.util.Date; 
+import java.util.HashMap;
 import java.util.Locale; 
+import java.util.Map;
 import java.io.IOException;
 import java.text.DateFormat; 
 import java.text.ParseException; 
 import java.text.SimpleDateFormat; 
 
-import model.*;
 
 public class Project {
 	/*
@@ -72,42 +73,43 @@ public class Project {
 		ArrayList<ArrayList<String> >ans = new ArrayList<ArrayList<String> >();
 		ArrayList<ArrayList<String> > in = inNode.get(0);
 		
-		String kind = paraArrayList.get(0);
-		for(ArrayList<String> i : in)
+		String []para = paraArrayList.get(1).split(" ");
+		int []id = new int[para.length];
+		ArrayList<String> line = in.get(0), data = new ArrayList<String>();
+		
+		for(int i = 0; i < para.length; i++)
 		{
-			String IMSI = i.get(0);
-			String Time_Stamp = i.get(3);
-			String Duration = i.get(4);
-			String start_ci = i.get(6);
-			String end_ci = i.get(8);
-			String start_lac = i.get(5);
-			String end_lac = i.get(7);
-			
-			ArrayList<String> data = new ArrayList<String>();
-			if(kind.equals("GetTimeProject"))
-			{
-				data.add(IMSI);
-				data.add(Time_Stamp);
-				data.add(Duration);
-			}
-			else
-				if(kind.equals("GetLacAndCiProject"))
+			data.add(para[i]);
+			for(int j = 0; j < line.size(); j++)
+				if(para[i].equals(line.get(j)))
 				{
-					data.add(IMSI);
-					data.add(start_ci);
-					data.add(end_ci);
-					data.add(start_lac);
-					data.add(end_lac);
+					id[i] = j;
+					break;
 				}
-				else
-					if(kind.equals("GetPhoneNumProject"))
-					{
-						data.add(IMSI);
-					}
+		}
+		
+		ans.add(data);
+		for(int i = 1, size = para.length; i < in.size(); i++)
+		{
+			line = in.get(i);
+			data = new ArrayList<String>();
+			
+			for(int j = 0; j < size; j++)
+				data.add(line.get(id[j]));
 			
 			ans.add(data);
 		}
 		
 		return ans;
+	}
+	
+	public static void main(String[] args) throws Exception
+	{
+		String [] s = "1 2 3 ".split(" ");
+		for(int i = 0; i < s.length; i++)
+				System.out.print("[" + s[i] + "]");
+		//nodeMap.put(id, node);
+		//Map<String, Node> nodeMap = new HashMap<String, Node>();
+		//nodeMap.get(endFigureId);
 	}
 }

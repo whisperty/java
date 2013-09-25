@@ -6,9 +6,6 @@ import java.io.*;
 
 import java.util.ArrayList;
 
-
-import model.*;
-
 public class DataStream {
 	/*public ArrayList<Data> cal(ArrayList<Node>inNodeArrayList, ArrayList<String>inNodeNameArrayList, ArrayList<String> paraArrayList) throws IOException
 	{
@@ -48,7 +45,7 @@ public class DataStream {
 		ArrayList<ArrayList<String> >ans = new ArrayList<ArrayList<String> >();
 		
 		//ArrayList<Data> in = inNodeArrayList.get(0).getOut();		
-		File file = new File("F:\\Stream\\sig_data.txt");
+		File file = new File(Conf.dataStreamFileRoot + "\\" + paraArrayList.get(1));
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String str = null;
 		

@@ -7,8 +7,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 
-import model.*;
-
 public class End {
 	/*public ArrayList<Data> cal(ArrayList<Node>inNodeArrayList, ArrayList<String>inNodeNameArrayList, ArrayList<String> paraArrayList) throws IOException
 	{
@@ -40,7 +38,7 @@ public class End {
 		ArrayList<ArrayList<String> >ans = new ArrayList<ArrayList<String> >();
 	
 		ArrayList<ArrayList<String> > in = inNode.get(0);
-		FileWriter fw = new FileWriter("F://Stream//myresult.txt");//创建FileWriter对象，用来写入字符流
+		FileWriter fw = new FileWriter(Conf.endResultFileRoot);//创建FileWriter对象，用来写入字符流
         BufferedWriter bw = new BufferedWriter(fw);    //将缓冲对文件的输出
         
         for(int i = 0; i < in.size(); i++)
