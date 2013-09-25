@@ -35,7 +35,7 @@ public class JarUtil extends URLClassLoader {
 			catch(Exception e)
 			{
 				//typeClass = Class.forName("users."+type);
-				typeClass = JarUtil.findClass("file:\\" + Conf.usersOperationJarRoot + "\\users.jar", "users." + type);
+				typeClass = JarUtil.findClass("file:\\" + Conf.usersOperatorsJarRoot + "\\users.jar", "users." + type);
 			}
 			
 			//typeClass = JarUtil.findClass(Conf.usersOperationJarRoot + "\\users.jar", "users." + type);
