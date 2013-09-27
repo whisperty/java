@@ -43,7 +43,6 @@ import model.*;
 @RemotingDestination
 public class Network 
 {
-	private final int MAX_GET_DATA = 1000000;
 	private ArrayList<Node> nodeArrayList;
 	Map<String, Node> nodeMap;
 	
@@ -58,18 +57,29 @@ public class Network
 	@RemotingInclude
 	public ArrayList<String> getData(String ID)
 	{
-		ArrayList<String> tmp = nodeMap.get(ID).getOutDataArrayList();
-		ArrayList<String> ans = new ArrayList<String>();
+		return nodeMap.get(ID).getOutDataArrayList();
+	}
+	
+	@RemotingInclude
+	public String getFinalDataForSaveFile()
+	{
+		Node node = nodeArrayList.get(nodeArrayList.size() - 1);
+		ArrayList<Data> out = node.getOut();
+		String ans = "";
 		
-		int num = nodeMap.get(ID).getOut().get(0).size();
-		
-		num =  (int)(MAX_GET_DATA / (int)num) * num;
-		
-		if(tmp.size() <=  MAX_GET_DATA)
-			return tmp; 
-		
-		for(int i = 0; i <  MAX_GET_DATA; i++)
-			ans.add(tmp.get(i));
+		for(int i = 0; i < out.size(); i++)
+		{
+			Data data = out.get(i);
+			for(int j = 0; j < data.size(); j++)
+			{
+				if(j > 0)
+					ans += "\t";
+				
+				ans += data.get(j);
+			}
+			
+			ans += "\r\n";
+		}
 		
 		return ans;
 	}
@@ -90,7 +100,7 @@ public class Network
 	
 	
 	@RemotingInclude
-	public void init(String xmlNetwork)
+	public String init(String xmlNetwork)
 	{
 		 nodeArrayList = new ArrayList<Node>();
 		 gg = "fule";
@@ -146,6 +156,8 @@ public class Network
 		//	nodeArrayList.get(i).print();
 		 
 		//System.out.println(nodeArrayList.size());
+		
+		return getFinalDataForSaveFile();
 	}
 	
 	void cal()
