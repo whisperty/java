@@ -20,7 +20,7 @@ public class JarUtil extends URLClassLoader {
 		return  t.findClass(classPath);
 	}
 	
-	public static Object executeJarClass(String type, Object... args)
+	public static Object executeJarClass(String type, String jarFilename, Object... args)
 	{
 		Object outArrayList = null;
 		try
@@ -29,13 +29,22 @@ public class JarUtil extends URLClassLoader {
 			
 			try
 			{
-				//typeClass = Class.forName("operators."+type);
-				typeClass = JarUtil.findClass("file:\\" + Conf.operatorsJarRoot + "\\operators.jar", "operators." + type);
+				typeClass = Class.forName("operators."+type);
+				//typeClass = JarUtil.findClass("file:\\" + Conf.operatorsJarRoot + "\\operators.jar", "operators." + type);
 			}
 			catch(Exception e)
 			{
 				//typeClass = Class.forName("users."+type);
-				typeClass = JarUtil.findClass("file:\\" + Conf.usersOperatorsJarRoot + "\\users.jar", "users." + type);
+				//replaceFirst(" *$", "");
+				jarFilename = jarFilename.replace(".jar", "");
+				try
+				{
+					typeClass = JarUtil.findClass("file:\\" + Conf.usersOperatorsJarRoot + "\\" + jarFilename + ".jar", type);
+				}
+				catch(Exception ee)
+				{
+					typeClass = JarUtil.findClass("file:\\" + Conf.usersOperatorsJarRoot + "\\" + jarFilename + ".jar", jarFilename+"."+type);
+				}
 			}
 			
 			//typeClass = JarUtil.findClass(Conf.usersOperationJarRoot + "\\users.jar", "users." + type);

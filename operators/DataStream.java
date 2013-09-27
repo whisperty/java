@@ -49,6 +49,7 @@ public class DataStream {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String str = null;
 		
+		int size = 0;
 		while((str = reader.readLine()) != null)
 		{
 			String[] strArray = str.split("\\t");
@@ -67,6 +68,11 @@ public class DataStream {
 			
 			//System.out.println("");
 			
+			String tmp = "";
+			while(data.size() < size)
+				data.add(tmp);
+			
+			size = data.size();
 			ans.add(data);
 		}
 		

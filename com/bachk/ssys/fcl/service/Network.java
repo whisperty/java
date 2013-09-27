@@ -35,7 +35,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-import com.bachk.ssys.fcl.model.SMSModel;
+import com.bachk.ssys.fcl.model.*;
 import com.bachk.ssys.fcl.model.SelectItem;
 import model.*;
 
@@ -43,11 +43,57 @@ import model.*;
 @RemotingDestination
 public class Network 
 {
-	private ArrayList<Node> nodeArrayList = new ArrayList<Node>();
+	private final int MAX_GET_DATA = 1000000;
+	private ArrayList<Node> nodeArrayList;
+	Map<String, Node> nodeMap;
+	
+	private String gg; 
+	
+	@RemotingInclude
+	public ArrayList<String> getAttributes(String ID)
+	{
+		return nodeMap.get(ID).getOut().get(0).toArrayList();
+	}
+	
+	@RemotingInclude
+	public ArrayList<String> getData(String ID)
+	{
+		ArrayList<String> tmp = nodeMap.get(ID).getOutDataArrayList();
+		ArrayList<String> ans = new ArrayList<String>();
+		
+		int num = nodeMap.get(ID).getOut().get(0).size();
+		
+		num =  (int)(MAX_GET_DATA / (int)num) * num;
+		
+		if(tmp.size() <=  MAX_GET_DATA)
+			return tmp; 
+		
+		for(int i = 0; i <  MAX_GET_DATA; i++)
+			ans.add(tmp.get(i));
+		
+		return ans;
+	}
+	
+	@RemotingInclude
+	public ArrayList<DataItem> get()
+	{
+		System.out.println("----------------------------------------------------------------------------" + gg);
+		ArrayList<DataItem>ans = new ArrayList<DataItem>();
+		
+		DataItem data = new DataItem(1, 2);
+		ans.add(data);
+		data = new DataItem(3, 4);
+		ans.add(data);
+		
+		return ans;
+	}
+	
 	
 	@RemotingInclude
 	public void init(String xmlNetwork)
 	{
+		 nodeArrayList = new ArrayList<Node>();
+		 gg = "fule";
 		 System.out.println("fsafdsafdsadfsaaaaaaaaaaaaaaasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
 		 //JarUtil.executeJarClass("file:\\G:\\users.jar", "users.TT", "cal", "454");
 		 //JarUtil.executeJarClass(Conf.usersOperationJarRoot + "\\users.jar", "users.TT", "cal", "454");
@@ -93,9 +139,9 @@ public class Network
 		 for(int i = 0; i < nodeArrayList.size(); i++)
 			 nodeArrayList.get(i).print();
 		
-		//for(int i = 0; i < 5; i++)
+		//for(int i = 0; i < 3; i++)
 		//	nodeArrayList.get(i).calOut();
-		 cal();
+		cal();
 		 //for(int i = 0; i < nodeArrayList.size(); i++)
 		//	nodeArrayList.get(i).print();
 		 
@@ -111,7 +157,7 @@ public class Network
 	void getNetwork(String xmlNetwork)
 	{
 		Document doc = null;
-		Map<String, Node> nodeMap = new HashMap<String, Node>();
+		nodeMap = new HashMap<String, Node>();
 		
 	    try 
 	    {
@@ -150,11 +196,20 @@ public class Network
 	        			node.addPara(element.attributeValue("attributesName"));
 	        		}
 	        		else
-	        			if(type.endsWith("Select"))
+	        			if(type.equals("Select"))
 	        			{
 	        				node.addPara("conditionExpr=");
 	        				node.addPara(element.attributeValue("conditionExpr"));
 	        			}
+	        			else
+	        				if(type.equals("End") == false)
+	        				{
+	        					if(element.attributeValue("isUserOp").equals("1"))
+	        					{
+	        						node.addPara("jarFilename=");
+	        						node.addPara(element.attributeValue("jarFilename"));
+	        					}
+	        				}
 	        	
 	        	nodeMap.put(id, node);
 	        	nodeArrayList.add(node);

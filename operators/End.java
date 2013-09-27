@@ -35,9 +35,11 @@ public class End {
 	
 	public ArrayList<ArrayList<String> > cal(ArrayList< ArrayList<ArrayList<String> > >inNode, ArrayList<String>inNodeNameArrayList, ArrayList<String> paraArrayList) throws IOException
 	{
-		ArrayList<ArrayList<String> >ans = new ArrayList<ArrayList<String> >();
+		ArrayList<ArrayList<String> >ans;
 	
 		ArrayList<ArrayList<String> > in = inNode.get(0);
+		
+		ans = in;
 		FileWriter fw = new FileWriter(Conf.endResultFileRoot);//创建FileWriter对象，用来写入字符流
         BufferedWriter bw = new BufferedWriter(fw);    //将缓冲对文件的输出
         

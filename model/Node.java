@@ -99,6 +99,24 @@ public class Node
 		return ans;
 	}
 	
+	public ArrayList<String>  getOutDataArrayList()
+	{
+		ArrayList<String> ans = new ArrayList<String>();
+		
+		int size = outArrayList.get(0).size();
+		for(int i = 1; i < outArrayList.size(); i++)
+		{
+			ArrayList<String> line = outArrayList.get(i).toArrayList();
+			
+			if(line.size() != size)
+				System.out.println("erroreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + line.size() + " "+ size);
+			for(int j = 0; j < line.size(); j++)
+				ans.add(line.get(j));
+		}
+		
+		return ans;
+	}
+	
 	public ArrayList<ArrayList<ArrayList<String> > > inNodeArrayListToArrayList()
 	{
 		ArrayList<ArrayList<ArrayList<String> > >ans = new ArrayList<ArrayList<ArrayList<String> > >();
@@ -122,7 +140,12 @@ public class Node
 	//¼ÆËã½á¹û
 	public void calOut()
 	{
-		outArrayList = toDataArrayList((ArrayList<ArrayList<String> >)JarUtil.executeJarClass(type, this.inNodeArrayListToArrayList(), inDataNameArrayList, paraArrayList));
+		String tmp = "";
+		if(paraArrayList != null && paraArrayList.size() >= 2)
+			tmp = paraArrayList.get(1);
+		
+		//tmp = "users.jar";
+		outArrayList = toDataArrayList((ArrayList<ArrayList<String> >)JarUtil.executeJarClass(type, tmp, this.inNodeArrayListToArrayList(), inDataNameArrayList, paraArrayList));
 		
 		/*
     	try
