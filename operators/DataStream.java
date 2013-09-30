@@ -5,6 +5,7 @@ import java.lang.*;
 import java.io.*;
 
 import java.util.ArrayList;
+import model.*;
 
 public class DataStream {
 	/*public ArrayList<Data> cal(ArrayList<Node>inNodeArrayList, ArrayList<String>inNodeNameArrayList, ArrayList<String> paraArrayList) throws IOException

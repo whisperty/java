@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Conf;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -22,7 +24,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class FileUploaded extends HttpServlet {
 
     // 定义文件的上传路径
-    private String uploadPath = "G:\\workplace\\fcl\\src\\main\\webapp\\streamnetwork-debug\\uploadFiles\\";
+    private String uploadPath = Conf.operatorsJarRoot +"\\";
 
     // 限制文件的上传大小
 //    private int maxPostSize = 100 * 1024 * 1024;
