@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 
-public class Join {
+public class Combine {
 	
 	/*
 	 * Join
